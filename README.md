@@ -1,8 +1,8 @@
 # CWChops
 
-[![CI](https://github.com/OWNER/CWChops/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/CWChops/actions/workflows/ci.yml)
-[![Release](https://github.com/OWNER/CWChops/actions/workflows/release.yml/badge.svg)](https://github.com/OWNER/CWChops/actions/workflows/release.yml)
-[![Latest release](https://img.shields.io/github/v/release/OWNER/CWChops?include_prereleases)](https://github.com/OWNER/CWChops/releases/latest)
+[![CI](https://github.com/WW2DX/CWChops/actions/workflows/ci.yml/badge.svg)](https://github.com/WW2DX/CWChops/actions/workflows/ci.yml)
+[![Release](https://github.com/WW2DX/CWChops/actions/workflows/release.yml/badge.svg)](https://github.com/WW2DX/CWChops/actions/workflows/release.yml)
+[![Latest release](https://img.shields.io/github/v/release/WW2DX/CWChops?include_prereleases)](https://github.com/WW2DX/CWChops/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 A cross-platform contest logger for the **CWops CWT** (CWops Tests), with rig
@@ -24,7 +24,7 @@ control over **TCI** only — built for **RemoteHamRadio (RHR)** TCI connections
 ## Download
 
 Grab the installer for your platform from the
-**[latest release](https://github.com/OWNER/CWChops/releases/latest)**:
+**[latest release](https://github.com/WW2DX/CWChops/releases/latest)**:
 
 | Platform | File |
 |----------|------|

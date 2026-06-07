@@ -4,6 +4,14 @@
   "description": "Cross-platform CWops CWT contest logger with TCI (RemoteHamRadio) rig control",
   "author": "Lee (WW2DX) <lee@remotehamradio.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WW2DX/CWChops.git"
+  },
+  "homepage": "https://github.com/WW2DX/CWChops#readme",
+  "bugs": {
+    "url": "https://github.com/WW2DX/CWChops/issues"
+  },
   "main": "./out/main/index.js",
   "type": "module",
   "scripts": {
