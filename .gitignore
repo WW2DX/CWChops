@@ -1,0 +1,17 @@
+node_modules/
+out/
+dist/
+*.log
+.DS_Store
+.vite/
+.eslintcache
+# TypeScript incremental build info
+*.tsbuildinfo
+# Playwright output
+test-results/
+playwright-report/
+# Local Claude Code settings
+.claude/
+# local user data / runtime DB
+*.sqlite
+*.sqlite-journal
