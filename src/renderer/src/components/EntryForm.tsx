@@ -185,12 +185,28 @@ export function EntryForm({
     return () => window.removeEventListener('keydown', onKey)
   }, [macros, sendMacro])
 
-  const enterHandler =
+  // Tab cycles through just the entry boxes (call → name → nr → call), wrapping
+  // around, and Shift+Tab goes the other way — so corrections during a QSO are a
+  // quick keystroke away without Enter logging or tabbing out to other controls.
+  const cycleField = useCallback(
+    (field: EntryField, backward: boolean) => {
+      const order: EntryField[] = ['call', 'name', 'nr']
+      const i = order.indexOf(field)
+      const next = order[(i + (backward ? order.length - 1 : 1)) % order.length]
+      focusField(next)
+    },
+    [focusField]
+  )
+
+  const keyHandler =
     (field: EntryField) =>
     (e: React.KeyboardEvent): void => {
       if (e.key === 'Enter') {
         e.preventDefault()
         handleEnter(field)
+      } else if (e.key === 'Tab') {
+        e.preventDefault()
+        cycleField(field, e.shiftKey)
       }
     }
 
@@ -225,7 +241,7 @@ export function EntryForm({
             autoComplete="off"
             onFocus={() => setFocused('call')}
             onChange={(e) => setCall(e.target.value.toUpperCase())}
-            onKeyDown={enterHandler('call')}
+            onKeyDown={keyHandler('call')}
             placeholder="W1XYZ"
           />
           {dupe && <span className="dupe-badge">DUPE</span>}
@@ -240,7 +256,7 @@ export function EntryForm({
             autoComplete="off"
             onFocus={() => setFocused('name')}
             onChange={(e) => setName(e.target.value)}
-            onKeyDown={enterHandler('name')}
+            onKeyDown={keyHandler('name')}
             placeholder="Bud"
           />
         </div>
@@ -254,7 +270,7 @@ export function EntryForm({
             autoComplete="off"
             onFocus={() => setFocused('nr')}
             onChange={(e) => setNr(e.target.value.toUpperCase())}
-            onKeyDown={enterHandler('nr')}
+            onKeyDown={keyHandler('nr')}
             placeholder="1 / TX"
           />
         </div>
