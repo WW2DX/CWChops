@@ -23,6 +23,16 @@ const CREDIT_LONG =
 // Set before the app is ready so the menu bar / dock show the app name in dev too.
 app.setName(APP_NAME)
 
+// CWChops stores nothing in cookies / web storage that needs OS-level encryption,
+// so opt out of Chromium's keychain-backed "Safe Storage". This stops macOS from
+// prompting for the login keychain password on every launch (the ACL otherwise
+// re-prompts whenever the unsigned dev binary changes between rebuilds).
+//   - macOS: --password-store is ignored; --use-mock-keychain makes OSCrypt use
+//     an in-memory key instead of the real login keychain (no prompt).
+//   - Linux: --password-store=basic skips gnome-keyring/kwallet.
+app.commandLine.appendSwitch('use-mock-keychain')
+app.commandLine.appendSwitch('password-store', 'basic')
+
 const ROSTER_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000
 
 /** Configure the native About panel and a minimal app menu carrying the name. */
