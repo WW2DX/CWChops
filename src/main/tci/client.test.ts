@@ -106,15 +106,14 @@ describe('TciClient (against a mock TCI server)', () => {
     expect(server.received).toContain('modulation:0;')
   })
 
-  it('sets both macros and keyer CW speed', async () => {
+  it('sets CW macros speed with the trx receiver (RHR-compatible)', async () => {
     server = await MockTciServer.start()
     client = new TciClient({ host: '127.0.0.1', port: server.port, trx: 0 })
     client.connect()
     await waitForState(client, (s) => s.connection === 'ready')
 
     client.setWpm(32)
-    await waitForReceived(server, (c) => c === 'cw_keyer_speed:32;')
-    expect(server.received).toContain('cw_macros_speed:32;')
+    await waitForReceived(server, (c) => c === 'cw_macros_speed:0,32;')
     expect(client.getState().wpm).toBe(32)
   })
 

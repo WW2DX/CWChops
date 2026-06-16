@@ -83,20 +83,18 @@ export function cmdCwMsgCorrect(call: string): string {
   return `cw_msg:${escapeCwText(call)};`
 }
 
-export function cmdSetCwSpeed(wpm: number): string {
-  return `cw_macros_speed:${Math.round(wpm)};`
+/**
+ * Set CW keying speed. The receiver/trx index is required: RHR's handler is
+ * `CW_MACROS_SPEED:receiver,wpm;` and silently ignores the command when the wpm
+ * arg is missing (i.e. the single-arg `cw_macros_speed:wpm;` form). See
+ * RHR_Nuxt lib/devices/tci-translator.js `_handleCwMacrosSpeed`.
+ */
+export function cmdSetCwSpeed(trx: number, wpm: number): string {
+  return `cw_macros_speed:${trx},${Math.round(wpm)};`
 }
 
 export function cmdReadCwSpeed(): string {
   return 'cw_macros_speed;'
-}
-
-/**
- * Keyer speed. Some TCI servers (RHR) key CW at the keyer speed rather than the
- * macros speed, so we set both to cover either implementation.
- */
-export function cmdSetCwKeyerSpeed(wpm: number): string {
-  return `cw_keyer_speed:${Math.round(wpm)};`
 }
 
 export function cmdCwStop(): string {

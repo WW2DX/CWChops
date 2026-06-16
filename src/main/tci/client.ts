@@ -8,7 +8,6 @@ import {
   cmdCwStop,
   cmdReadModulation,
   cmdReadVfo,
-  cmdSetCwKeyerSpeed,
   cmdSetCwSpeed,
   cmdSetModulation,
   cmdSetTrx,
@@ -210,9 +209,9 @@ export class TciClient extends EventEmitter {
   }
 
   setWpm(wpm: number): void {
-    // Set both macros and keyer speed — RHR keys at the keyer speed.
-    this.send(cmdSetCwSpeed(wpm))
-    this.send(cmdSetCwKeyerSpeed(wpm))
+    // RHR keys at the CW macros speed; the command needs the trx index or it's
+    // ignored. (RHR has no cw_keyer_speed handler, so don't bother sending it.)
+    this.send(cmdSetCwSpeed(this.settings.trx, wpm))
     // Optimistically reflect it: RHR never reports CW speed back.
     this.patch({ wpm })
   }
