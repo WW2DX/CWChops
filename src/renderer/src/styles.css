@@ -418,6 +418,28 @@ tbody tr:hover {
 .scoreboard {
   text-align: center;
 }
+.cwt-countdown {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 0 12px;
+}
+.cwt-countdown-lbl {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.cwt-countdown-time {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.cwt-countdown.live .cwt-countdown-lbl,
+.cwt-countdown.live .cwt-countdown-time {
+  color: var(--good);
+}
 .score-total {
   font-family: var(--mono);
   font-size: 40px;

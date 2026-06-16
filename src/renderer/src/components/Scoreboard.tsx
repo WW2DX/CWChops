@@ -1,4 +1,5 @@
 import { CWT_BANDS, type Contest, type ScoreSummary } from '@shared/types'
+import { CwtCountdown } from './CwtCountdown'
 
 interface Props {
   contest: Contest | null
@@ -9,6 +10,7 @@ export function Scoreboard({ contest, score }: Props) {
   return (
     <div className="panel scoreboard">
       <h3>{contest ? contest.session : 'CWT'}</h3>
+      <CwtCountdown />
       <div className="score-total">{score.total.toLocaleString()}</div>
       <div className="score-grid">
         <div>
