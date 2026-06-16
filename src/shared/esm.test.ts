@@ -20,8 +20,8 @@ describe('esmAction — S&P mode', () => {
   it('sends my call and advances to Name', () => {
     expect(esmAction('sp', 'call', true)).toEqual({ macro: 'mycall', focus: 'name' })
   })
-  it('does nothing from an empty Call', () => {
-    expect(esmAction('sp', 'call', false)).toEqual({})
+  it('sends the exchange from an empty Call', () => {
+    expect(esmAction('sp', 'call', false)).toEqual({ macro: 'exch' })
   })
   it('sends my exchange and logs from the Nr field', () => {
     expect(esmAction('sp', 'nr', true)).toEqual({ macro: 'exch', log: true })
@@ -45,6 +45,6 @@ describe('esmHint', () => {
     expect(esmHint('sp', 'call', true)).toBe('Enter: send my call →')
     expect(esmHint('sp', 'nr', true)).toBe('Enter: exchange + log')
     expect(esmHint('off', 'nr', true)).toBe('Enter: log')
-    expect(esmHint('sp', 'call', false)).toBe('')
+    expect(esmHint('sp', 'call', false)).toBe('Enter: send exchange →')
   })
 })

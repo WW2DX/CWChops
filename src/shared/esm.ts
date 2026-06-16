@@ -25,14 +25,14 @@ export interface EsmAction {
  *
  * Run (calling CQ):  Call empty -> CQ; Call -> send exchange, go to Name;
  *                    Name -> Nr;  Nr -> TU + log.
- * S&P (answering):   Call -> send my call, go to Name;  Name -> Nr;
- *                    Nr -> send my exchange + log.
+ * S&P (answering):   Call empty -> exchange;  Call -> send my call, go to Name;
+ *                    Name -> Nr;  Nr -> send my exchange + log.
  * Off:               Enter just walks Call -> Name -> Nr -> log.
  */
 export function esmAction(mode: EsmMode, field: EntryField, hasCall: boolean): EsmAction {
   if (field === 'call') {
     if (mode === 'run') return hasCall ? { macro: 'exch', focus: 'name' } : { macro: 'cq' }
-    if (mode === 'sp') return hasCall ? { macro: 'mycall', focus: 'name' } : {}
+    if (mode === 'sp') return hasCall ? { macro: 'mycall', focus: 'name' } : { macro: 'exch' }
     return { focus: 'name' } // off
   }
   if (field === 'name') {
