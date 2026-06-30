@@ -44,6 +44,7 @@ export function App() {
   wpmRef.current = wpm
   const prevConnRef = useRef<RadioState['connection']>('disconnected')
   const [showSettings, setShowSettings] = useState(false)
+  const [newSessionLabel, setNewSessionLabel] = useState<string | null>(null)
   const [logLines, setLogLines] = useState<string[]>([])
 
   // Initial load.
@@ -118,13 +119,19 @@ export function App() {
     []
   )
 
-  const handleNewSession = useCallback(async () => {
-    const label = window.prompt('Session label (e.g. CWT-1900):', 'CWT-1900')
+  // `window.prompt` isn't supported in Electron (returns null silently), so we
+  // open an in-app modal instead. `newSessionLabel` null = closed.
+  const handleNewSession = useCallback(() => setNewSessionLabel('CWT-1900'), [])
+
+  const handleCreateSession = useCallback(async () => {
+    const label = newSessionLabel?.trim()
     if (!label) return
     const c = await api.newContest(label)
     setContest(c)
     setQsos([])
-  }, [])
+    setNewSessionLabel(null)
+    setLogLines((p) => [...p.slice(-49), `new session: ${label}`])
+  }, [newSessionLabel])
 
   const handleExport = useCallback(
     async (kind: 'cabrillo' | 'adif') => {
@@ -252,6 +259,46 @@ export function App() {
           </div>
         </aside>
       </div>
+
+      {newSessionLabel !== null && (
+        <div className="modal-backdrop" onClick={() => setNewSessionLabel(null)}>
+          <div className="modal new-session" onClick={(e) => e.stopPropagation()}>
+            <header className="modal-head">
+              <h2>New Session</h2>
+              <button className="link" onClick={() => setNewSessionLabel(null)}>
+                ✕
+              </button>
+            </header>
+            <div className="modal-body">
+              <p className="muted">
+                Starts a fresh log for the next contest. Your current QSOs stay saved under their
+                own session — export them first if you haven't.
+              </p>
+              <label>
+                Session label
+                <input
+                  autoFocus
+                  value={newSessionLabel}
+                  onChange={(e) => setNewSessionLabel(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') void handleCreateSession()
+                    else if (e.key === 'Escape') setNewSessionLabel(null)
+                  }}
+                  placeholder="CWT-1900"
+                />
+              </label>
+            </div>
+            <footer className="modal-foot">
+              <button className="link" onClick={() => setNewSessionLabel(null)}>
+                Cancel
+              </button>
+              <button onClick={() => void handleCreateSession()} disabled={!newSessionLabel.trim()}>
+                Start session
+              </button>
+            </footer>
+          </div>
+        </div>
+      )}
 
       {showSettings && (
         <SettingsPanel

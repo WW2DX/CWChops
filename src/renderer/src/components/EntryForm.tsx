@@ -203,7 +203,10 @@ export function EntryForm({
     (e: React.KeyboardEvent): void => {
       if (e.key === 'Enter') {
         e.preventDefault()
-        handleEnter(field)
+        // Shift+Enter always logs the current QSO directly, skipping ESM's
+        // send-the-exchange step — a quick "just log it" for any field.
+        if (e.shiftKey) void logQso()
+        else handleEnter(field)
       } else if (e.key === 'Tab') {
         e.preventDefault()
         cycleField(field, e.shiftKey)

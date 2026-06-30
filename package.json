@@ -1,6 +1,6 @@
 {
   "name": "cwchops",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Cross-platform CWops CWT contest logger with TCI (RemoteHamRadio) rig control",
   "author": "Lee (WW2DX) <lee@remotehamradio.com>",
   "license": "MIT",

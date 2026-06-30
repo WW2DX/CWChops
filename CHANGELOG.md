@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-06-30
+
+### Added
+
+- Shift+Enter logs the current QSO directly from any entry box, skipping ESM's
+  send-the-exchange step — a quick "just log it" when the exchange is already
+  done.
+
+### Fixed
+
+- "New Session…" did nothing: it relied on `window.prompt`, which Electron
+  doesn't support (returns null silently). Replaced with an in-app modal so you
+  can name and start a fresh log for the next contest (e.g. switching from the
+  1300Z to the 1900Z CWT).
+
 ## [0.2.0] - 2026-06-16
 
 ### Added
@@ -40,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   control, dupe/mult scoring, CWops member roster lookup, ESM (Enter Sends
   Message) automation, and Cabrillo / ADIF export.
 
-[Unreleased]: https://github.com/WW2DX/CWChops/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/WW2DX/CWChops/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/WW2DX/CWChops/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/WW2DX/CWChops/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/WW2DX/CWChops/releases/tag/v0.1.0

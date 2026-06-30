@@ -549,6 +549,9 @@ tbody tr:hover {
   justify-content: flex-end;
   gap: 10px;
 }
+.modal.new-session {
+  width: 420px;
+}
 .modal-head h2 {
   margin: 0;
   font-size: 16px;
